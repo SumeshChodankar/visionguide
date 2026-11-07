@@ -1,0 +1,19 @@
+# API
+fastapi>=0.115
+uvicorn[standard]>=0.30
+python-multipart>=0.0.9
+pydantic>=2.7
+pydantic-settings>=2.3
+httpx>=0.27
+
+# Imaging
+pillow>=10.3
+numpy>=1.26
+
+# AI providers
+google-genai>=3.0          # Gemini 4 Argon (brain) + Gemini Flash (vision); tested with 3.0.0
+openai>=1.40              # Whisper
+
+# Local CV (pulls in torch; on CPU-only machines install torch first, see docs/DEPLOYMENT.md)
+ultralytics>=8.2          # YOLOv8n
+easyocr>=1.7

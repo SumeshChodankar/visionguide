@@ -1,0 +1,141 @@
+{
+  "0": {
+    "plan_sha1": "f160d98e63a135bef60a127dc050c3e5a1fa13d5",
+    "notes": {
+      "layout": "The ground level is divided by a large, open central atrium and concourse that runs vertically through the plan, separating a rectilinear wing on the right side of the page from an angled wing on the left. Four distinct stair and lift cores serve the building: two in the right-hand wing (one in the upper block, one in the lower block) and two along the outer edge of the angled left-hand wing.",
+      "spaces": {
+        "1": "UCL Reception: located at the lower end of the upper-right block, directly facing the central atrium space and just below the upper-right stair and lift core, adjacent to the main side entrance.",
+        "2": "Community Classroom: at the top end of the upper-right block (top-right on the page), on the opposite side of the upper-right stair and lift core from the reception (1) and across the central passage from the Learning Studio (3).",
+        "3": "Learning Studio: a large room at the top end of the angled left-hand wing, bordering the upper entrance of the central passage and adjacent to the upper-left stair and lift core.",
+        "4": "Future Lab Black Box: situated in the middle of the angled left-hand wing, tucked between the upper-left stair/lift core and the central atrium, with a feature stair along its atrium-facing wall.",
+        "5": "Precision Fabrication Workshop: comprises two separate workshop zones along the outer edge of the angled left-hand wing—one in the middle section between the two left-side cores, and another at the far bottom-left corner below the lower-left core and adjacent to the Institute of Making (6).",
+        "6": "Institute of Making: a large hall at the bottom of the left-hand wing, bordering the lower central atrium space and positioned between the lower-left Precision Fabrication Workshop (5) and the lower central entrance.",
+        "7": "Café: occupies the upper part of the lower-right block, directly across the side entrance passage from the reception (1), opening onto the central atrium and sitting just above the lower-right stair and lift core."
+      },
+      "circulation": "Movement is organised around the wide central atrium concourse, which connects four exterior entry points: a top-to-bottom route (along section line B-B) between the two main wings, and a cross-route (along section line A-A) linking a right-side entrance between Reception (1) and the Café (7) to a left-side entrance between the two left-hand cores. From this central open space, you can directly access the Reception (1), Café (7), Institute of Making (6), and Learning Studio (3), as well as corridors leading into the four stair and lift cores.",
+      "notes": "An open staircase sits along the inner wall of the Future Lab Black Box (4) facing the central atrium. Free-standing structural columns (shown as solid black circles) are spaced along the edges of the central atrium concourse and inside the larger halls (3, 6, and 7), which may be encountered while walking through open areas."
+    }
+  },
+  "1": {
+    "plan_sha1": "eddd5a987b137dc4b9df8d5285be953ab815b718",
+    "notes": {
+      "layout": "This level consists of two main wings—an angled wing on the left side of the page and a vertical wing on the right—separated by a large central atrium void. There are four main stair and lift cores, two in each wing (one toward the top of the page and one toward the bottom in each wing). The two wings are linked across the central void by wide bridge landings at the top and bottom of the atrium.",
+      "spaces": {
+        "1": "Specialist Computer Lab: Located at the very top of the right-hand wing (on the page), immediately above the upper-right stair and lift core and across the upper atrium bridge from the Lecture Theatre (2).",
+        "2": "Lecture Theatre: A large room at the top end of the angled left-hand wing (on the page), directly adjacent to the upper-left stair and lift core and next to the upper bridge across the atrium.",
+        "3": "Quiet Contemplation Room: Located along the outer left edge of the angled left-hand wing, reached via the corridor running past the upper-left stair and lift core, just before the Making Space (4).",
+        "4": "Making Space: Situated in the middle of the angled left-hand wing along its outer edge, directly next to the Quiet Contemplation Room (3) and separated from the lower-left core by a cross-corridor.",
+        "5": "Institute of Making: Occupies a large open area at the bottom of the angled left-hand wing (on the page), wrapping around the lower-left stair and lift core and extending alongside a secondary lower void.",
+        "6": "Cinematic & Videogame Architecture Studio: Located in the middle section of the right-hand wing, positioned between the upper-right and lower-right stair and lift cores, facing the central atrium void."
+      },
+      "circulation": "Movement between the left and right wings happens via two wide cross-atrium bridges located near the top and bottom ends of the central void. Within the angled left wing, an internal corridor runs behind the upper-left core to serve rooms 2, 3, and 4, while a long straight stair/ramp runs along the inner edge of the wing facing the central atrium. In the right wing, circulation runs along the atrium edge and through a corridor along the outer right wall past the lower-right core.",
+      "notes": "In addition to the main central atrium void (marked with diagonal cross-lines), there is a smaller rectangular void at the bottom edge of the plan adjacent to the Institute of Making (5), and another small void at the very top of the central atrium bridge."
+    }
+  },
+  "2": {
+    "plan_sha1": "93482a4c516b281d39e0ee2f921cb75a100d4ddd",
+    "notes": {
+      "layout": "This level forms a trapezoidal footprint with a sloped outer edge on the left of the page and a straight outer edge on the right. At the center is a main atrium void accompanied by a wide, angled feature stair along its left side and a smaller secondary void just to its right. Four main stair, lift, and toilet cores are positioned near the four corners of the floorplate (top-left, top-right, bottom-left, and bottom-right on the page).",
+      "spaces": {
+        "1": "Student Hub: Located in the top-right corner of the plan, directly behind (to the right of) the top-right stair and lift core.",
+        "2": "Specialist Computer Lab: Situated in the top-center section of the plan, bordered by the top-left core on one side, the top-right core on the other, and the main walkway overlooking the central atrium below it.",
+        "3": "Library: Occupies the middle-left and upper-left areas along the sloped outer wall, wrapping around the outer and lower sides of the top-left core, and separated from the central atrium by a row of lifts and stairs.",
+        "4": "Refectory: A large open space occupying the bottom-center of the plan, directly below the main walkway at the foot of the central atrium, flanked by the bottom-left and bottom-right cores.",
+        "5": "Workspace: Marked in two corner locations along the bottom edge of the plan: one tucked into the far bottom-left corner past the bottom-left core, and the other in the far bottom-right corner below the bottom-right core.",
+        "6": "UCL Student Union: Located along the middle-right edge of the plan, just below the projecting Balcony East (7) and immediately above and to the right of the bottom-right core.",
+        "7": "Balcony East: Projects outward from the middle of the right-hand perimeter wall, reached via the open concourse on the right side of the central atrium and just above the UCL Student Union (6)."
+      },
+      "circulation": "Movement centers on wide open walkways framing the top, right, and bottom edges of the central atrium void, with a prominent feature stair running along the atrium's angled left edge. Narrower corridors branch off from this central concourse to pass beside the four corner cores, giving access to the corner workspaces (5), the Student Hub (1), and the rooms along the right perimeter.",
+      "notes": "The central concourse between the atrium void and the Refectory (4), as well as the area leading out to Balcony East (7), contains several freestanding structural columns (shown as solid black circles) that users will encounter in the open floor space."
+    }
+  },
+  "3": {
+    "plan_sha1": "05b78271d9ee068ba39ee9f2ab6d02b1553625ba",
+    "notes": {
+      "layout": "Level 03 is arranged in a C-shaped layout around a large central void and atrium that opens toward the right side of the page, with an angled perimeter edge along the left side. There are four main stair, lift, and toilet cores positioned in the four corners of the floorplate: two angled cores along the left wing (top-left and bottom-left on the page) and two rectangular cores toward the right side (top-right and bottom-right on the page). An additional rectangular void is located along the bottom edge of the plan between the teaching spaces and the bottom-right core.",
+      "spaces": {
+        "1": "Workspaces located in the four outer corners of the building, wrapping around the outer edges of each of the four stair and lift cores (top-left, top-right, bottom-left, and bottom-right on the page).",
+        "2": "Media Studios form a central block of rooms in the upper wing (top of the page), situated directly between the top-left angled core and the top-right rectangular core, just north of the central atrium walkway.",
+        "3": "Library is an open-plan area stretching along the angled left wing between the top-left and bottom-left cores, bounded on its inner side by the feature staircase along the edge of the central atrium.",
+        "4": "Teaching Spaces are four distinct rooms grouped in the lower wing (bottom of the page), positioned between the bottom-left angled core and the bottom-right core, along the walkway south of the central atrium and bordering the smaller bottom void."
+      },
+      "circulation": "Main open walkways run along the top and bottom edges of the central atrium, linking the left-hand cores to the right-hand cores and providing access to the Media Studios (2) and Teaching Spaces (4). These upper and lower wings are connected on the left side of the atrium through the open Library (3) zone and a long feature stair running parallel to the atrium's angled left edge.",
+      "notes": "The central void completely separates the upper wing (Media Studios and top-right Workspace) from the lower wing (Teaching Spaces and bottom-right Workspace) on the right side of the plan, meaning you must cross via the left wing (through or alongside the Library) to move between the top and bottom sections of this level."
+    }
+  },
+  "4": {
+    "plan_sha1": "7079d98dcbdbc2f27158ec75791e7b215bd6b148",
+    "notes": {
+      "layout": "This level has a trapezoidal footprint with an angled outer edge on the left of the page and a straight outer edge on the right. A central trapezoidal atrium void sits in the middle of the plan, flanked by feature stairs on its angled left and straight right edges. Four enclosed stair, lift, and toilet cores are arranged in two pairs—two along the angled left wing and two along the straight right wing—separating the central atrium zone from the outer perimeter workspaces.",
+      "spaces": {
+        "1": "Workspace: open-plan perimeter zones running along the outer walls behind the cores and teaching spaces. One long strip runs along the entire angled outer edge (left on the page, wrapping around the top-left and bottom-left cores), and another runs along the straight outer edge (right on the page, behind the top-right core and teaching spaces).",
+        "2": "Project Space: a large open area directly adjacent to the central atrium on its upper side (top of the page), sitting between the two upper cores and leading directly out to the terrace (3).",
+        "3": "Terrace: an external space at the top edge of the plan, accessed directly from the open Project Space (2) between the two upper wing blocks.",
+        "4": "Teaching Space: four enclosed rooms located between the stair/lift cores in both wings. Two are in the angled left wing between the upper-left and lower-left cores (opening toward the atrium walkway and the outer workspace), and two are stacked next to each other in the straight right wing between the upper-right and lower-right cores.",
+        "5": "Large Design Studio: a very large, columned space occupying the entire lower central section of the floor (bottom of the page), situated directly below the central atrium walkway and flanked by the two lower stair/lift cores."
+      },
+      "circulation": "A continuous open circulation loop wraps all four sides of the central atrium void, passing the feature stairs along the void's left, right, and upper edges. Cross-passages run between the cores and teaching spaces (4) on both the left and right wings, connecting the central atrium loop out to the perimeter workspaces (1).",
+      "notes": "Three feature stairs sit within the central atrium zone: a long flight along the angled left edge of the void, a vertical flight along the right edge of the void, and a shorter flight in the Project Space (2) just above the void."
+    }
+  },
+  "5": {
+    "plan_sha1": "c8e4ee85642ee6f03c2f89d64cb08687f2a20b15",
+    "notes": {
+      "layout": "This level forms a U-shape open at the top of the plan, wrapping around a large triangular central atrium void. There are four stair and lift cores: two along the angled wing (on the left side of the page) and two along the vertical wing (on the right side of the page), plus an open stair running along the right edge of the atrium void.",
+      "spaces": {
+        "1": "Workspaces are located at the far ends of both wings (top-left, bottom-left, top-right, and bottom-right on the page) just past the four stair/lift cores, as well as a narrow strip along the outer wall of the right-hand wing behind the top-right core.",
+        "2": "Teaching Spaces sit in the middle sections of both main wings, nestled between the upper and lower stair/lift cores. On the angled left wing there is a row of three rooms facing the atrium walkway; on the vertical right wing there is a two-by-two block of four rooms.",
+        "3": "The Innovation Lab is a large space spanning the entire connecting section between the two wings (at the bottom of the page), directly adjacent to the bottom edge of the central atrium void and flanked by the two lower stair/lift cores.",
+        "4": "Shared/Group Study areas are open zones located along the main walkways directly beside the central atrium void, directly outside the Teaching Spaces (2) on both the angled left wing and the vertical right wing."
+      },
+      "circulation": "Two main linear walkways run along the inner edges of the left and right wings, directly bordering the central atrium void and passing through the Shared/Group Study areas (4). At the bottom of the plan, these two walkways meet a wide east-west route along the southern edge of the atrium that fronts the Innovation Lab (3); there is no bridge or connection across the top end of the atrium on this level.",
+      "notes": "Because the top of the atrium is open to the exterior or lower levels without a connecting bridge, getting from the top end of the left wing to the top end of the right wing requires walking all the way around the bottom side of the central atrium past the Innovation Lab (3)."
+    }
+  },
+  "6": {
+    "plan_sha1": "9e45190e9b631b42366904da65dc064bb7af50b6",
+    "notes": {
+      "layout": "Level 06 has a trapezoidal floorplate with an angled wing on the left of the plan and a straight vertical wing on the right, surrounding a central triangular atrium void. There are four main stair, lift, and toilet cores positioned near the four corners of the building: two along the angled left wing (top-left and bottom-left on the page) and two along the straight right wing (top-right and bottom-right on the page). The two wings are linked across the atrium by a wide bridge at the top of the plan and a large suite of rooms at the bottom.",
+      "spaces": {
+        "1": "Workspace areas are located at the far ends of both wings, outboard of the cuatro corner cores: one at the top tip of the angled left wing above the top-left core, one at the bottom tip of the left wing below the bottom-left core, one wrapping around the top and outer right side of the top-right core, and one along the bottom edge below the bottom-right core.",
+        "2": "Teaching Spaces are found in two main clusters: in the middle section of the angled left wing between the two left cores (with one room below the top-left core and another above the bottom-left core, flanking space 3), and a block of four adjacent rooms in the middle of the right wing between the top-right and bottom-right cores.",
+        "3": "The Specialist Computer Lab is in the middle of the angled left wing, sandwiched directly between the two Teaching Spaces (2) and opening onto the Shared/Group Study area (6).",
+        "4": "The Management Education Suite occupies the entire bottom middle section of the floorplan between the bottom-left and bottom-right cores, consisting of a large open circulation/gathering zone bordering the bottom edge of the central atrium void and four partitioned rooms lining the bottom exterior wall.",
+        "5": "The Project Space is a wide, open bridge-like zone spanning across the top side of the central atrium void, directly connecting the angled left wing (near the top-left core) to the right wing (near the top-right core).",
+        "6": "The Shared/Group Study area forms part of the open walkway along the angled left edge of the central atrium, directly outside the Specialist Computer Lab (3) and between the two left-wing Teaching Spaces (2)."
+      },
+      "circulation": "A continuous loop walkway runs around all three sides of the central triangular atrium. Along the angled left side, a corridor passes between the atrium void and the cores/teaching rooms (widening into the Shared/Group Study area 6 in the middle); along the right side, a straight corridor runs past the central block of Teaching Spaces (2) and an atrium-side stair; at the top and bottom of the void, you cross between wings through the open Project Space (5) or the open upper portion of the Management Education Suite (4).",
+      "notes": "An open feature stair runs vertically along the right edge of the central atrium void, and another stair flight sits along the bottom edge of the void bordering the Management Education Suite (4). There is also a deep exterior recess or notch at the top middle of the plan, just above the Project Space (5)."
+    }
+  },
+  "7": {
+    "plan_sha1": "4d240ff129b32f39411dbae821d4258aad268b58",
+    "notes": {
+      "layout": "This level forms a loop around a central triangular-to-trapezoidal atrium void, with an angled wing on the left of the page and a straight vertical wing on the right. Four stair-and-lift cores are positioned at the corners around the central void: two along the angled left wing (upper-left and lower-left on the plan) and two along the vertical right wing (upper-right and lower-right on the plan).",
+      "spaces": {
+        "1": "Conservation Lab: Located at the top of the right-hand wing on the plan, directly beyond the upper-right stair and toilet core.",
+        "2": "Manufacturing Futures Lab: Occupies four connected zones along the upper-left and middle-left of the floorplate, wrapping around the upper-left stair/lift core, stretching down between the upper-left and lower-left cores along the angled outer wall, and also sitting directly above the central Workspace (6) between the two upper cores.",
+        "3": "Staff Common Room: A wide open area along the bottom edge of the central atrium walkway on the plan, situated between the lower-left and lower-right cores and opening out toward the Terrace (4).",
+        "4": "Terrace: A wide outdoor area along the bottom edge of the plan, directly accessed through the Staff Common Room (3) and framed between the lower ends of the left and right wings.",
+        "5": "Wet Lab: Two spaces in the right-hand wing; the larger main lab sits along the outer right wall between the upper-right and lower-right cores, and a smaller second lab is at the bottom tip of the right wing below the lower-right core.",
+        "6": "Workspace: An open circulation and work zone running along the top edge of the central atrium void on the plan, bridging between the upper-left core and the upper-right core and bordering the central Manufacturing Futures Lab (2).",
+        "7": "Large Equipment Lab: Located at the bottom tip of the angled left wing on the plan, just past the lower-left stair and toilet core."
+      },
+      "circulation": "A continuous four-sided walkway loops directly around the central atrium void, connecting all four corner stair/lift cores. From this inner loop, short side corridors pass alongside each of the four cores to reach the labs at the outer corners of the building (spaces 1, 2, 5, and 7), while the Workspace (6) and Staff Common Room (3) form wide open parts of the loop along the top and bottom sides of the atrium.",
+      "notes": "A flight of feature stairs is built into the bottom-right edge of the central atrium walkway (just above the Staff Common Room on the plan). Structural columns line the perimeter of the atrium void along the walkways and run through the Staff Common Room."
+    }
+  },
+  "8": {
+    "plan_sha1": "dd394676ea8644dbbba7f304d2314f56f478622f",
+    "notes": {
+      "layout": "Level 08 consists of two main wings—an angled wing on the left of the page and a straight vertical wing on the right—separated by a large central atrium void. A single wide bridge (labelled 1) connects the two wings across the upper-middle part of the void, with a smaller secondary void above the bridge. There are four stair and toilet cores in total: one near the top and one near the bottom of each wing, with the two upper cores also containing lift shafts.",
+      "spaces": {
+        "1": "Workspace: Located on the wide central bridge that spans between the left and right wings, bordered by the main central atrium void on one side (bottom of the page) and a smaller void on the other (top of the page), sitting just between the two upper lift and stair cores.",
+        "2": "Manufacturing Futures Lab: Occupies the entire angled wing on the left of the page, divided into five distinct lab sections: one at the top end beyond the upper-left core, three contiguous rooms lined up along the main corridor between the upper-left and lower-left cores, and one at the bottom end past the lower-left core.",
+        "3": "Advanced Propulsion Lab: Occupies the entire vertical wing on the right of the page, split into four main lab areas: one at the top end past the upper-right core, two contiguous central rooms situated between the upper-right and lower-right cores along the atrium walkway, and one at the bottom end past the lower-right core."
+      },
+      "circulation": "Unlike lower floors with a complete loop, circulation on this level is H-shaped: walkways run along the inner atrium edge of both the left and right wings and are linked only by the single central bridge (Workspace 1) near the upper lift cores. To reach the end labs at the top and bottom of each wing, you pass through narrower corridors running behind or alongside the four stair cores.",
+      "notes": "Because there is no bridge across the bottom end of the central atrium void on Level 08, crossing between the Manufacturing Futures Lab wing (2) and the Advanced Propulsion Lab wing (3) requires going via the central Workspace bridge (1) near the upper lift cores."
+    }
+  }
+}

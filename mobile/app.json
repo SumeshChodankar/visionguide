@@ -1,0 +1,39 @@
+{
+  "expo": {
+    "name": "VisionGuide",
+    "slug": "visionguide",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "backgroundColor": "#000000",
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.visionguide.app",
+      "infoPlist": {
+        "NSCameraUsageDescription": "VisionGuide uses the camera to detect hazards, read signs and room numbers, and find entrances.",
+        "NSMicrophoneUsageDescription": "VisionGuide listens to your voice commands, like 'take me to Room 443B'.",
+        "NSLocationWhenInUseUsageDescription": "VisionGuide uses your location for walking directions to your destination.",
+        "UIBackgroundModes": ["audio"],
+        "NSAppTransportSecurity": { "NSAllowsArbitraryLoads": true }
+      }
+    },
+    "android": {
+      "package": "com.visionguide.app",
+      "usesCleartextTraffic": true,
+      "permissions": ["CAMERA", "RECORD_AUDIO", "ACCESS_FINE_LOCATION", "ACCESS_COARSE_LOCATION", "VIBRATE", "ACTIVITY_RECOGNITION"],
+      "adaptiveIcon": {
+        "backgroundColor": "#000000",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "plugins": [
+      ["expo-camera", { "cameraPermission": "VisionGuide uses the camera to detect hazards and read signs.", "recordAudioAndroid": false }],
+      ["expo-audio", { "microphonePermission": "VisionGuide listens to your voice commands." }],
+      ["expo-location", { "locationWhenInUsePermission": "VisionGuide uses your location for walking directions." }]
+    ]
+  }
+}

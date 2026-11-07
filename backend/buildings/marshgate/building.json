@@ -1,0 +1,39 @@
+{
+  "id": "marshgate",
+  "name": "UCL East Marshgate",
+  "aliases": ["Marshgate", "Marshgate building", "UCL Marshgate", "UCL East Marshgate", "UCL East"],
+  "address": "Marshgate, 7 Sidings Street, Stratford, London E20 2AE",
+  "location": { "lat": 51.537542, "lng": -0.011982 },
+  "radius_m": 120,
+  "source": "Stanton Williams architectural plans, 1:600 @ A4, annotated (one plan per level)",
+  "notes": [
+    "Levels are numbered from Level 00 (ground) to Level 08. Level N is floor N in the app (ground = 0).",
+    "The plans show named spaces only (numbered keys), not individual room numbers.",
+    "Each level has stair and lift cores (hatched stairs, small lift shafts) and a central atrium; the ground level is split into a western wing and two eastern blocks with external routes between them."
+  ],
+  "floors": [
+    { "level": 0, "name": "Ground Level", "plan": "images/level-00.jpg",
+      "key": { "1": "UCL Reception", "2": "Community Classroom", "3": "Learning Studio", "4": "Future Lab Black Box",
+               "5": "Precision Fabrication Workshop", "6": "Institute of Making", "7": "Café" } },
+    { "level": 1, "name": "Level 01", "plan": "images/level-01.jpg",
+      "key": { "1": "Specialist Computer Lab", "2": "Lecture Theatre", "3": "Quiet Contemplation Room", "4": "Making Space",
+               "5": "Institute of Making", "6": "Cinematic & Videogame Architecture Studio" } },
+    { "level": 2, "name": "Level 02", "plan": "images/level-02.jpg",
+      "key": { "1": "Student Hub", "2": "Specialist Computer Lab", "3": "Library", "4": "Refectory", "5": "Workspace",
+               "6": "UCL Student Union", "7": "Balcony East" } },
+    { "level": 3, "name": "Level 03", "plan": "images/level-03.jpg",
+      "key": { "1": "Workspace", "2": "Media Studios", "3": "Library", "4": "Teaching Spaces" } },
+    { "level": 4, "name": "Level 04", "plan": "images/level-04.jpg",
+      "key": { "1": "Workspace", "2": "Project Space", "3": "Terrace", "4": "Teaching Space", "5": "Large Design Studio" } },
+    { "level": 5, "name": "Level 05", "plan": "images/level-05.jpg",
+      "key": { "1": "Workspace", "2": "Teaching Space", "3": "Innovation Lab", "4": "Shared/Group Study" } },
+    { "level": 6, "name": "Level 06", "plan": "images/level-06.jpg",
+      "key": { "1": "Workspace", "2": "Teaching Space", "3": "Specialist Computer Lab", "4": "Management Education Suite",
+               "5": "Project Space", "6": "Shared/Group Study" } },
+    { "level": 7, "name": "Level 07", "plan": "images/level-07.jpg",
+      "key": { "1": "Conservation Lab", "2": "Manufacturing Futures Lab", "3": "Staff Common Room", "4": "Terrace",
+               "5": "Wet Lab", "6": "Workspace", "7": "Large Equipment Lab" } },
+    { "level": 8, "name": "Level 08", "plan": "images/level-08.jpg",
+      "key": { "1": "Workspace", "2": "Manufacturing Futures Lab", "3": "Advanced Propulsion Lab" } }
+  ]
+}
