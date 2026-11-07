@@ -16,6 +16,12 @@ function devServerHost(): string | null {
   return null;
 }
 
+/** Shown on screen so you can tell which version the phone is running. Bump when testing a fix. */
+export const BUILD_TAG = 'v4 faster';
+
+/** Must match ACCESS_KEY in backend/.env when the backend is reachable from the internet (tunnel / cloud). */
+export const ACCESS_KEY = (process.env.EXPO_PUBLIC_ACCESS_KEY ?? '').trim();
+
 const fromEnv = (process.env.EXPO_PUBLIC_API_URL ?? '').trim();
 const host = devServerHost();
 export const API_URL = (fromEnv || (host ? `http://${host}:${BACKEND_PORT}` : 'http://localhost:8001')).replace(/\/$/, '');
@@ -34,5 +40,5 @@ export const CONFIG = {
   wakeWord: 'Alex', // say "Alex, <instruction>" for hands-free control (web: Chrome / Edge)
   wakeWindowMs: 8000, // after "Alex" alone, how long to wait for the instruction
   requestTimeoutMs: 15000,
-  voiceTimeoutMs: 50000, // brain turns chain several tool calls; keep above backend BRAIN_TIMEOUT_S
+  voiceTimeoutMs: 70000, // brain turns chain several tool calls; keep well above backend BRAIN_TIMEOUT_S (40 s)
 };

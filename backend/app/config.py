@@ -71,6 +71,9 @@ class Settings(BaseSettings):
     ground_floor_is_one: bool = True      # US-style numbering for 2-digit rooms
 
     # --- Infra ---------------------------------------------------------------
+    # When the backend is reachable from the internet (tunnel, cloud), set this: every request except /health
+    # must send it as the X-VisionGuide-Key header (or ?key= for viewing images in a browser).
+    access_key: str = ""
     db_path: str = "visionguide.db"
     cors_origins: str = "*"
     log_level: str = "INFO"

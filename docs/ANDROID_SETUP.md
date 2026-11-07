@@ -12,6 +12,30 @@ Android phone (Expo Go)  ──Wi-Fi──▶  Laptop
 
 ---
 
+## Quick start: one command
+
+After the one-time setup below, start everything with **one command** (or double-click `start-visionguide.cmd`):
+
+```powershell
+cd "C:\Users\sumes\projects_sumeshchodankar\UCL London Hackathon 2\visionguide\visionguide"
+powershell -ExecutionPolicy Bypass -File scripts\start-visionguide.ps1
+```
+
+It stops anything left over, starts the backend, the Cloudflare tunnel and Expo (each in its own window),
+writes the tunnel's new address into `mobile/.env`, keeps the access key in sync, and prints what to do on the
+phone. Takes ~1.5 minutes. Works on UCL Wi-Fi, eduroam or mobile data.
+
+| Option | What it does |
+|---|---|
+| *(none)* | Tunnel mode: phone on any network |
+| `-Local` | Hotspot mode: phone and laptop on the same network, no tunnels |
+| `-Stop` | Stops the backend, Expo and tunnels |
+
+Then on the phone: **Settings → Apps → Expo Go → Force stop**, open Expo Go, scan the QR code in the
+"VisionGuide Expo" window, and check the version at the end of the bottom status line.
+
+---
+
 ## 1. One-time setup on the laptop
 
 ### 1a. Allow the backend through Windows Firewall
@@ -50,6 +74,30 @@ You don't need to edit any address: the app finds the backend on the same laptop
 If the laptop changes networks, **restart Expo** (step 3) and scan the new QR code.
 
 ---
+
+### 2b. On UCL Wi-Fi (or any network): tunnels instead of a hotspot
+
+Campus Wi-Fi blocks the phone from reaching the laptop, but the laptop's internet there is much better than a
+hotspot's. Tunnels let the phone reach the laptop through the internet, from any network (UCL Wi-Fi, mobile data):
+
+1. `backend/.env` has `ACCESS_KEY=…` and `mobile/.env` has the same value as `EXPO_PUBLIC_ACCESS_KEY=…`.
+   With a public URL, only the app (which sends the key) can use the backend.
+2. Start the backend (step 3, terminal 1), then the backend tunnel in a third terminal:
+   ```powershell
+   cd "C:\Users\sumes\projects_sumeshchodankar\UCL London Hackathon 2\visionguide\visionguide"
+   & "..\tools\cloudflared\cloudflared.exe" tunnel --no-autoupdate --url http://localhost:8001
+   ```
+   Copy the `https://….trycloudflare.com` address it prints into `mobile/.env` as `EXPO_PUBLIC_API_URL=…`.
+   The address is new every time cloudflared restarts.
+3. Start the app with Expo's tunnel (instead of terminal 2 below):
+   ```powershell
+   cd "C:\Users\sumes\projects_sumeshchodankar\UCL London Hackathon 2\visionguide\visionguide\mobile"
+   npx expo start --tunnel ngrok --clear
+   ```
+   Scan the `exp://….exp.direct` QR code in Expo Go. (Plain `--tunnel` needs an Expo account login.)
+4. Check: `https://….trycloudflare.com/health` opens in the phone's browser.
+
+To go back to hotspot / local mode, remove `EXPO_PUBLIC_API_URL` from `mobile/.env` (keep the access key).
 
 ## 3. Start the servers (two terminals on the laptop)
 

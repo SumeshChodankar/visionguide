@@ -154,11 +154,16 @@ class Orchestrator:
 
     # ------------------------------------------------------------------ camera
     async def perceive(self, session: SessionState, image_bytes: bytes, mode: str = "auto",
-                       focus: str | None = None) -> Perception:
+                       focus: str | None = None, use_ocr: bool | None = None) -> Perception:
         """Vision (Gemini Flash), YOLO and OCR concurrently, then hazard fusion.
-        Shared by the live frame loop and the brain's look_around tool."""
+        Shared by the live frame loop and the brain's look_around tool.
+
+        EasyOCR (3-11 s on this CPU) is skipped for "describe": Gemini transcribes visible signs anyway.
+        It still runs for "read" (sign reading), "auto" (live loop: room plates for arrival) and on request."""
         img, jpeg = load_image(image_bytes)
         timings: dict[str, float] = {}
+        if use_ocr is None:
+            use_ocr = mode != "describe"
 
         async def timed(name, coro):
             t = time.perf_counter()
@@ -167,10 +172,13 @@ class Orchestrator:
             finally:
                 timings[name] = round((time.perf_counter() - t) * 1000, 1)
 
+        async def no_ocr():
+            return []
+
         scene, detections, ocr = await asyncio.gather(
             timed("gemini", self.vision.understand(jpeg, session, mode, focus)),
             timed("yolo", asyncio.to_thread(self.vision.detect, img)),
-            timed("ocr", asyncio.to_thread(self.ocr.read, img)),
+            timed("ocr", asyncio.to_thread(self.ocr.read, img)) if use_ocr else no_ocr(),
         )
         if scene:
             ocr = self.ocr.merge_gemini_signs(ocr, scene.sign_texts)
@@ -306,12 +314,16 @@ class Orchestrator:
 
     # Never wait on an LLM for these.
     INSTANT_INTENTS = {"stop", "repeat", "help"}
+    CAMERA_INTENTS = {"describe", "read_text"}
 
     async def handle_text(self, session: SessionState, text: str, frame: bytes | None = None) -> AgentResponse:
         intent = self.voice.understand(text)
         self.db.log(session.id, "command", {"text": text, "intent": intent.model_dump(exclude_none=True)})
 
-        if self.brain and self.brain.enabled and intent.name not in self.INSTANT_INTENTS:
+        # "What's ahead?" / "Read the sign" with a photo: the camera pipeline answers directly (measured YOLO
+        # objects + one Gemini look, ~5-8 s). The multi-step brain added 10-30 s to rephrase the same scene.
+        direct = frame is not None and intent.name in self.CAMERA_INTENTS
+        if self.brain and self.brain.enabled and intent.name not in self.INSTANT_INTENTS and not direct:
             try:
                 turn, reply = await self.brain.run(session, text, frame)
             except BrainError as e:

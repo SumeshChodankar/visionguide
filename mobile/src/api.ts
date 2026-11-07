@@ -1,13 +1,21 @@
+import { File } from 'expo-file-system';
 import { Platform } from 'react-native';
-import { API_URL, CONFIG } from './config';
+import { ACCESS_KEY, API_URL, CONFIG } from './config';
 import type { AgentResponse, FrameMode, FrameResponse, SessionSnapshot, Utterance } from './types';
 
 async function request<T>(path: string, init: RequestInit = {}, timeoutMs = CONFIG.requestTimeoutMs): Promise<T> {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs);
   try {
-    const res = await fetch(`${API_URL}${path}`, { ...init, signal: controller.signal });
-    if (!res.ok) throw new Error(`${res.status} ${await res.text()}`);
+    const headers = new Headers(init.headers);
+    if (ACCESS_KEY) headers.set('X-VisionGuide-Key', ACCESS_KEY);
+    let res: Response;
+    try {
+      res = await fetch(`${API_URL}${path}`, { ...init, headers, signal: controller.signal });
+    } catch (e) {
+      throw new Error(`${path.split('/').pop()}: ${String(e)}`); // e.g. "ask: TypeError: Network request failed"
+    }
+    if (!res.ok) throw new Error(`${path.split('/').pop()}: HTTP ${res.status} ${(await res.text()).slice(0, 120)}`);
     return (await res.json()) as T;
   } finally {
     clearTimeout(timer);
@@ -20,14 +28,18 @@ const json = (body: unknown): RequestInit => ({
   body: JSON.stringify(body),
 });
 
-// React Native's FormData accepts { uri, name, type } file descriptors. Browsers don't:
-// they would send the string "[object Object]", so on web we fetch the data:/blob: URI into a real Blob.
+// Attaching a local file (photo, voice recording) to a multipart upload.
+//  - Web: fetch the data:/blob: URI into a real Blob (browsers would send "[object Object]" otherwise).
+//  - Phone: Expo SDK 58's built-in fetch rejects React Native's old { uri, name, type } parts
+//    ("Unsupported FormDataPart implementation"). It accepts any part with name, type and bytes(),
+//    so we read the file with expo-file-system's File (a Blob implementation).
 async function appendFile(form: FormData, field: string, uri: string, name: string, type: string) {
   if (Platform.OS === 'web') {
     const blob = await (await fetch(uri)).blob();
     form.append(field, new Blob([blob], { type: blob.type || type }), name);
   } else {
-    form.append(field, { uri, name, type } as unknown as Blob);
+    const file = new File(uri);
+    form.append(field, { name, type, bytes: () => file.bytes() } as unknown as Blob);
   }
 }
 

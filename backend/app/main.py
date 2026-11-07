@@ -7,10 +7,12 @@ from __future__ import annotations
 
 import asyncio
 import logging
+import secrets
 from contextlib import asynccontextmanager
 from pathlib import Path
 
-from fastapi import Depends, FastAPI, File, Form, HTTPException, UploadFile
+from fastapi import Depends, FastAPI, File, Form, HTTPException, Request, UploadFile
+from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
@@ -83,6 +85,23 @@ async def lifespan(app: FastAPI):
 app = FastAPI(title="VisionGuide API", version="1.0.0", lifespan=lifespan,
               description="Multi-agent navigation assistant for blind and low-vision users.")
 _origins = [o.strip() for o in get_settings().cors_origins.split(",")]
+OPEN_PATHS = {"/health"}
+
+
+@app.middleware("http")
+async def require_access_key(request: Request, call_next):
+    """With ACCESS_KEY set, only clients that know it (our app) can use the API: a tunnel or cloud URL is
+    public, and every call spends the team's Gemini budget."""
+    o = getattr(request.app.state, "orchestrator", None)
+    key = o.s.access_key if o else get_settings().access_key
+    if key and request.method != "OPTIONS" and request.url.path not in OPEN_PATHS:
+        sent = request.headers.get("x-visionguide-key") or request.query_params.get("key") or ""
+        if not secrets.compare_digest(sent, key):
+            return JSONResponse({"detail": "Missing or wrong access key"}, status_code=401)
+    return await call_next(request)
+
+
+# Added after the key check so CORS headers wrap every response, including 401s.
 app.add_middleware(CORSMiddleware, allow_origins=_origins, allow_methods=["*"], allow_headers=["*"])
 # Floor plans and photos, viewable from the phone: /buildings/marshgate/images/level-02.jpg
 if Path(get_settings().buildings_dir).is_dir():

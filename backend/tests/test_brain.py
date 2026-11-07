@@ -155,3 +155,57 @@ def test_thinking_config_by_generation():
     g = GeminiService(Settings(_env_file=None))
     assert g._thinking("gemini-2.5-flash", "minimal").thinking_budget == 0
     assert g._thinking("gemini-4-argon", "low").thinking_level == types.ThinkingLevel.LOW
+
+
+# ---------------------------------------------------------------- speed: camera questions and OCR
+class CountingOcr:
+    enabled = True
+
+    def __init__(self):
+        self.calls = 0
+
+    def load(self):
+        pass
+
+    def read(self, img):
+        self.calls += 1
+        return []
+
+
+def test_whats_ahead_with_photo_skips_the_brain_and_easyocr(bclient, fakes, jpeg):
+    ocr = CountingOcr()
+    main.app.state.orchestrator.ocr.engine = ocr
+    fakes["gemini"].next_scene = scene(summary="A corridor with a door on the left.")
+    fakes["detector"].next = [Detection(label="chair", confidence=0.9, bbox=[0.4, 0.5, 0.6, 0.9], clock=12,
+                                        side="ahead", distance_m=3.2)]
+    sid = bclient.post("/v1/sessions").json()["session_id"]
+    r = bclient.post(f"/v1/sessions/{sid}/ask", data={"text": "What is in front of me?"},
+                     files={"image": ("f.jpg", jpeg, "image/jpeg")}).json()
+    texts = [u["text"] for u in r["utterances"]]
+    assert r["handled_by"] == "rules" and fakes["gemini"].brain_calls == 0      # no multi-step brain
+    assert ocr.calls == 0                                                        # no EasyOCR for describe
+    # safety warning first, then the measured objects, then Gemini's description
+    assert texts[:2] == ["Caution! Chair at 12 o'clock, 3 meters.", "Chair at 12 o'clock, 3 meters."]
+    assert "A corridor with a door on the left." in texts
+
+
+def test_read_sign_with_photo_still_runs_easyocr(bclient, fakes, jpeg):
+    ocr = CountingOcr()
+    main.app.state.orchestrator.ocr.engine = ocr
+    fakes["gemini"].next_scene = scene()
+    sid = bclient.post("/v1/sessions").json()["session_id"]
+    r = bclient.post(f"/v1/sessions/{sid}/ask", data={"text": "Read the sign"},
+                     files={"image": ("f.jpg", jpeg, "image/jpeg")}).json()
+    assert r["handled_by"] == "rules" and fakes["gemini"].brain_calls == 0 and ocr.calls == 1
+
+
+def test_brain_reads_text_only_when_a_tool_needs_it(bclient, fakes, jpeg):
+    ocr = CountingOcr()
+    main.app.state.orchestrator.ocr.engine = ocr
+    fakes["gemini"].next_scene = scene()
+    fakes["gemini"].script = [calls(("look_around", {})), calls(("read_signs", {})), say("Done.")]
+    sid = bclient.post("/v1/sessions").json()["session_id"]
+    r = bclient.post(f"/v1/sessions/{sid}/ask", data={"text": "Is this the right building?"},
+                     files={"image": ("f.jpg", jpeg, "image/jpeg")}).json()
+    assert r["handled_by"] == "brain"
+    assert ocr.calls == 1   # look_around: none; read_signs: once, on the same photo

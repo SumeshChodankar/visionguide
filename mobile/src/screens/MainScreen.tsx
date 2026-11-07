@@ -6,7 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { api } from '../api';
 import { listeningCue } from '../beep';
-import { API_URL, CONFIG } from '../config';
+import { API_URL, BUILD_TAG, CONFIG } from '../config';
 import { useCourseGuide } from '../hooks/useCourseGuide';
 import { useLocationTracking } from '../hooks/useLocationTracking';
 import { useSceneLoop } from '../hooks/useSceneLoop';
@@ -38,6 +38,7 @@ export default function MainScreen() {
   const [youSaid, setYouSaid] = useState<string | null>(null);
   const [repeating, setRepeating] = useState(false);
   const [thinking, setThinking] = useState(false);
+  const busyRef = useRef(false); // a question is in flight
   const [stepIndex, setStepIndex] = useState<number | null>(null);
   const lookNowRef = useRef<() => void>(() => {});
 
@@ -111,19 +112,39 @@ export default function MainScreen() {
   const runCommand = useCallback(
     async (text: string, withFrame = true) => {
       if (!sessionId) return;
+      const isStop = /^\s*(stop|cancel|quiet|be quiet|silence|pause|shut up)\b/i.test(text);
+      // One question at a time: extra presses used to start parallel requests that slowed every answer.
+      // "Stop" always goes through.
+      if (busyRef.current && !isStop) {
+        speech.local('Still working on your last question.', Priority.GUIDANCE);
+        return;
+      }
       await speech.stopAll(); // a new instruction ends the previous answer and its repeat
       setYouSaid(text);
-      const isStop = /^\s*(stop|cancel|quiet|be quiet|silence|pause|shut up)\b/i.test(text);
       if (isStop) setLiveOverride(null);
+      busyRef.current = true;
       setThinking(true);
       try {
         if (!isStop) speech.local('One moment.', 0);
         const frame = withFrame && !isStop && camPerm?.granted ? await scene.snapshot() : null;
+        let r;
+        try {
+          r = await api.ask(sessionId, isStop ? 'stop' : text, frame);
+        } catch (e) {
+          if (!frame) throw e;
+          // The photo upload failed (seen on some Android phones): still answer the question without it.
+          console.warn('[ask with photo failed, retrying without]', String(e));
+          setTrace(`⚠ photo upload failed: ${String(e).slice(0, 80)}`);
+          r = await api.ask(sessionId, text, null);
+        }
         // "stop" is answered but not repeated: repeating "navigation stopped" would defeat the point.
-        handle(await api.ask(sessionId, isStop ? 'stop' : text, frame), !isStop);
-      } catch {
+        handle(r, !isStop);
+      } catch (e) {
+        console.warn('[command failed]', text, String(e));
+        setTrace(`⚠ ${String(e).slice(0, 120)}`);
         speech.local('The server did not respond. Trying again may help.');
       } finally {
+        busyRef.current = false;
         setThinking(false);
       }
     },
@@ -194,6 +215,7 @@ export default function MainScreen() {
             sensorSummary.lux != null ? `💡${sensorSummary.lux}` : null,
             sensorSummary.baro ? '⛰ baro' : null,
             course.status || null,
+            BUILD_TAG,
           ].filter(Boolean).join('  ·  ')}
         </Text>
       </View>

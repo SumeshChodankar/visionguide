@@ -31,6 +31,7 @@ from ..schemas import Destination, Phase, Priority, SessionState
 from ..utils.floor import floor_phrase, infer_floor_from_room
 from ..utils.text import canonical_room
 from ..utils.geo import object_phrase
+from ..utils.image import load_image
 from .area_agent import _plain
 from .hazard_agent import SPOKEN_NAMES
 from .perception import Perception
@@ -218,6 +219,7 @@ class Turn:
         self._perceive_task: asyncio.Task | None = None
         self.client_action: str | None = None
         self.trace: list[dict] = []
+        self.ocr_done = False
         if frame:  # speculative: most turns need the camera, so start it alongside the first model call
             self._perceive_task = asyncio.create_task(orch.perceive(session, frame, "describe"))
 
@@ -229,6 +231,19 @@ class Turn:
         if self.perception and focus and self.frame:  # a focused question deserves a focused look
             self.perception = await self.o.perceive(self.s, self.frame, "describe", focus)
         return self.perception
+
+    async def ensure_ocr(self) -> Perception | None:
+        """The speculative look skips EasyOCR (slow); tools that must read text exactly run it now, once."""
+        p = await self.get_perception()
+        if p is None or self.ocr_done or not self.frame:
+            return p
+        self.ocr_done = True
+        img, _ = load_image(self.frame)
+        texts = await asyncio.to_thread(self.o.ocr.read, img)
+        p.ocr = self.o.ocr.merge_gemini_signs(texts, p.scene.sign_texts) if p.scene else texts
+        self.s.last_ocr = p.ocr
+        self.o.reasoning.update_floor(self.s, p.ocr, p.scene)
+        return p
 
     def cancel(self) -> None:
         if self._perceive_task and not self._perceive_task.done():
@@ -434,6 +449,7 @@ class Brain:
         return {"hazards": [_hz(h) for h in p.hazards], "path_clear": not any(h.severity >= Priority.WARNING for h in p.hazards)}
 
     async def t_signs(self, turn: Turn, a: dict) -> dict:
+        await turn.ensure_ocr()
         p = await self._need_view(turn)
         if isinstance(p, dict):
             return p
@@ -462,7 +478,7 @@ class Brain:
         return {"visible": False, "note": "Not in view. The live camera loop will announce it when it appears."}
 
     async def t_arrival(self, turn: Turn, a: dict) -> dict:
-        p = await turn.get_perception()
+        p = await turn.ensure_ocr()  # room plates must be read exactly
         if p:
             self.o.reasoning.verify_arrival(turn.s, p.ocr, p.scene)
         return turn.s.arrival.model_dump()

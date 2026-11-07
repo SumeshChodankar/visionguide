@@ -207,3 +207,24 @@ def test_barometer_floor_change_updates_floor_and_confirms_target(client):
     second = up()
     assert "floor 4" in second and "right floor for Room 443B" in second
     assert main.app.state.orchestrator.store.get(sid).current_floor == 4
+
+
+def test_access_key_required_when_configured(fakes, jpeg):
+    from fastapi.testclient import TestClient
+    from app import main
+    from app.config import Settings
+
+    main.app.state.orchestrator = main.build_orchestrator(
+        Settings(_env_file=None, agent_mode="rules", access_key="s3cret"), **fakes)
+    try:
+        with TestClient(main.app) as c:
+            assert c.get("/health").status_code == 200                       # open: lets you check the tunnel
+            assert c.post("/v1/sessions").status_code == 401                  # no key
+            assert c.post("/v1/sessions", headers={"X-VisionGuide-Key": "wrong"}).status_code == 401
+            r = c.post("/v1/sessions", headers={"X-VisionGuide-Key": "s3cret"})
+            assert r.status_code == 200
+            sid = r.json()["session_id"]
+            assert c.get(f"/v1/sessions/{sid}?key=s3cret").status_code == 200   # ?key= for a browser
+            assert c.options("/v1/sessions", headers={"Origin": "http://x", "Access-Control-Request-Method": "POST"}).status_code == 200
+    finally:
+        del main.app.state.orchestrator
